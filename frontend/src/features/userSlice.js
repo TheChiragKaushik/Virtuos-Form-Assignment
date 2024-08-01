@@ -6,7 +6,7 @@ export const addUserApi = createAsyncThunk(
     'user/addUser',
     async (formData, {rejectWithValue}) => {
         try {
-            const response = await axios.post('http://localhost:8000/users', formData);
+            const response = await axios.post('https://virtuos-form-assignment.onrender.com/users', formData);
             console.log(response)
             return response
             

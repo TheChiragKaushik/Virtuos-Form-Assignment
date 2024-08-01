@@ -8,7 +8,7 @@ function Showuser() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/users");
+        const response = await axios.get("https://virtuos-form-assignment.onrender.com/users");
 
         const data = response.data.map((user) => ({
           ...user,
