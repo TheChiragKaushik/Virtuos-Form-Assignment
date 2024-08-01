@@ -18,7 +18,6 @@ Follow these steps to set up your development environment:
    ```bash
    cd server
    npm install
-   cd src
    nodemon index.js
    
 
