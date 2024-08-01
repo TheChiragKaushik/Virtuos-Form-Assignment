@@ -1,3 +1,7 @@
+# Live Demo
+
+You can view the deployed application [here](https://virtuos-assignment.netlify.app/).
+
 # Virtuos-Form-Assignment
 
 ## Installation
@@ -14,13 +18,11 @@ Follow these steps to set up your development environment:
    ```bash
    cd server
    npm install
-   cd src
    nodemon index.js
    
 
 3. **For the frontend (if currently in server file)**
    ```bash
-   cd..
    cd..
    cd frontend
    npm install
