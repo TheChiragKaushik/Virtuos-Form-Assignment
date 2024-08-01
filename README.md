@@ -24,7 +24,6 @@ Follow these steps to set up your development environment:
 3. **For the frontend (if currently in server file)**
    ```bash
    cd..
-   cd..
    cd frontend
    npm install
    npm run dev
