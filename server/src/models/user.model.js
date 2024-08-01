@@ -5,12 +5,14 @@ const userSchema = new Schema({
         type: String,
         required: true,
         trim: true,
+        maxlength: [30, 'User name cannot exceed 30 characters'],  
         index: true,
     },
     collegeName: {
         type: String,
         required: true,
         trim: true,
+        maxlength: [50, 'College name cannot exceed 50 characters'],  
         index: true
     },
     round1Marks: {
