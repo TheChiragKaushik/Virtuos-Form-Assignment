@@ -1,5 +1,4 @@
-// Takeinfo.js
-import  { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUserApi } from "../features/userSlice.js";
 import { useNavigate } from "react-router-dom";
@@ -93,6 +92,7 @@ function Takeinfo() {
             value={formData.user}
             onChange={handleChange}
             label="Name"
+            maxLength={30} // Set maxLength for user name
           />
           <Formfield
             type="text"
@@ -100,6 +100,7 @@ function Takeinfo() {
             value={formData.collegeName}
             onChange={handleChange}
             label="College Name"
+            maxLength={50} // Set maxLength for college name
           />
           <Formfield
             type="number"
