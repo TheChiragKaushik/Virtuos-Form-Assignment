@@ -17,7 +17,6 @@ export const addUserApi = createAsyncThunk(
     } 
 )
 
-
 const initialState = {
     users: []
 }

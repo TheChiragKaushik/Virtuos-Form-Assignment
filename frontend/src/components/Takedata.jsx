@@ -1,7 +1,9 @@
-import { useState } from "react";
+// Takeinfo.js
+import  { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUserApi } from "../features/userSlice.js";
 import { useNavigate } from "react-router-dom";
+import Formfield from "./Formfield"; // Import the FormField component
 
 function Takeinfo() {
   const [formData, setFormData] = useState({
@@ -13,8 +15,8 @@ function Takeinfo() {
     techMarks: "",
   });
 
-  const [errors, setErrors] = useState([]); // Array to hold multiple validation errors
-  const [success, setSuccess] = useState(""); // To display success messages
+  const [errors, setErrors] = useState([]);
+  const [success, setSuccess] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -85,78 +87,60 @@ function Takeinfo() {
       <div className="w-full max-w-lg p-8 bg-white shadow-md rounded-lg">
         <h2 className="text-2xl font-bold mb-6 text-center">Add User</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gray-700">Name</label>
-            <input
-              type="text"
-              name="user"
-              value={formData.user}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700">College Name</label>
-            <input
-              type="text"
-              name="collegeName"
-              value={formData.collegeName}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700">Round 1 Marks</label>
-            <input
-              type="number"
-              name="round1Marks"
-              value={formData.round1Marks}
-              onChange={handleChange}
-              min={0}
-              max={10}
-              step="0.01"
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700">Round 2 Marks</label>
-            <input
-              type="number"
-              name="round2Marks"
-              value={formData.round2Marks}
-              onChange={handleChange}
-              min={0}
-              max={10}
-              step="0.01"
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700">Round 3 Marks</label>
-            <input
-              type="number"
-              name="round3Marks"
-              value={formData.round3Marks}
-              onChange={handleChange}
-              min={0}
-              max={10}
-              step="0.01"
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700">Tech Marks</label>
-            <input
-              type="number"
-              name="techMarks"
-              value={formData.techMarks}
-              onChange={handleChange}
-              min={10}
-              max={20}
-              step="0.01"
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          <Formfield
+            type="text"
+            name="user"
+            value={formData.user}
+            onChange={handleChange}
+            label="Name"
+          />
+          <Formfield
+            type="text"
+            name="collegeName"
+            value={formData.collegeName}
+            onChange={handleChange}
+            label="College Name"
+          />
+          <Formfield
+            type="number"
+            name="round1Marks"
+            value={formData.round1Marks}
+            onChange={handleChange}
+            label="Round 1 Marks"
+            min={0}
+            max={10}
+            step="0.01"
+          />
+          <Formfield
+            type="number"
+            name="round2Marks"
+            value={formData.round2Marks}
+            onChange={handleChange}
+            label="Round 2 Marks"
+            min={0}
+            max={10}
+            step="0.01"
+          />
+          <Formfield
+            type="number"
+            name="round3Marks"
+            value={formData.round3Marks}
+            onChange={handleChange}
+            label="Round 3 Marks"
+            min={0}
+            max={10}
+            step="0.01"
+          />
+          <Formfield
+            type="number"
+            name="techMarks"
+            value={formData.techMarks}
+            onChange={handleChange}
+            label="Tech Marks"
+            min={10}
+            max={20}
+            step="0.01"
+          />
           <button
             type="submit"
             className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
