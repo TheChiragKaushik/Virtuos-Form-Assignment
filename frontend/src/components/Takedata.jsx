@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUserApi } from "../features/userSlice.js";
 import { useNavigate } from "react-router-dom";
-import Formfield from "./Formfield"; // Import the FormField component
+import Formfield from "./Formfield";
 
 function Takeinfo() {
   const [formData, setFormData] = useState({
@@ -12,6 +12,8 @@ function Takeinfo() {
     round2Marks: "",
     round3Marks: "",
     techMarks: "",
+    maxRoundMarks: "",
+    maxTechMarks: ""
   });
 
   const [errors, setErrors] = useState([]);
@@ -27,6 +29,7 @@ function Takeinfo() {
     });
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
@@ -34,42 +37,56 @@ function Takeinfo() {
 
     let newErrors = [];
 
+    // Check required fields
     if (!formData.user) newErrors.push("Name is required!");
     if (!formData.collegeName) newErrors.push("College name is required!");
     if (!formData.round1Marks) newErrors.push("Round 1 marks are required!");
     if (!formData.round2Marks) newErrors.push("Round 2 marks are required!");
     if (!formData.round3Marks) newErrors.push("Round 3 marks are required!");
+    if (!formData.techMarks) newErrors.push("Technical marks are required!");
 
+    // Validate round marks
     if (
       formData.round1Marks &&
       (isNaN(formData.round1Marks) ||
         formData.round1Marks < 0 ||
-        formData.round1Marks > 10)
+        formData.round1Marks > formData.maxRoundMarks)
     ) {
-      newErrors.push("Round 1 marks must be between 0 and 10!");
+      newErrors.push(`Round 1 marks must be between 0 and ${formData.maxRoundMarks}!`);
     }
     if (
       formData.round2Marks &&
       (isNaN(formData.round2Marks) ||
         formData.round2Marks < 0 ||
-        formData.round2Marks > 10)
+        formData.round2Marks > formData.maxRoundMarks)
     ) {
-      newErrors.push("Round 2 marks must be between 0 and 10!");
+      newErrors.push(`Round 2 marks must be between 0 and ${formData.maxRoundMarks}!`);
     }
-
     if (
       formData.round3Marks &&
       (isNaN(formData.round3Marks) ||
         formData.round3Marks < 0 ||
-        formData.round3Marks > 10)
+        formData.round3Marks > formData.maxRoundMarks)
     ) {
-      newErrors.push("Round 3 marks must be between 0 and 10!");
+      newErrors.push(`Round 3 marks must be between 0 and ${formData.maxRoundMarks}!`);
+    }
+
+    // Validate tech marks
+    if (
+      formData.techMarks &&
+      (isNaN(formData.techMarks) ||
+        formData.techMarks < 10 ||
+        formData.techMarks > formData.maxTechMarks)
+    ) {
+      newErrors.push(`Technical marks must be between 10 and ${formData.maxTechMarks}!`);
     }
 
     if (newErrors.length > 0) {
       setErrors(newErrors);
       return;
     }
+
+    
 
     try {
       await dispatch(addUserApi(formData)).unwrap();
@@ -92,7 +109,7 @@ function Takeinfo() {
             value={formData.user}
             onChange={handleChange}
             label="Name"
-            maxLength={30} // Set maxLength for user name
+            maxLength={30}
           />
           <Formfield
             type="text"
@@ -100,8 +117,24 @@ function Takeinfo() {
             value={formData.collegeName}
             onChange={handleChange}
             label="College Name"
-            maxLength={50} // Set maxLength for college name
+            maxLength={50}
           />
+          <select name="maxRoundMarks" onChange={handleChange} value={formData.maxRoundMarks}>
+            <option disabled>Max Round Marks</option>
+            {[...Array(10).keys()].map((i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1}
+              </option>
+            ))}
+          </select>
+          <select name="maxTechMarks" onChange={handleChange} value={formData.maxTechMarks}>
+            <option disabled>Max Technical Marks</option>
+            {[...Array(11).keys()].map((i) => (
+              <option key={i + 10} value={i + 10}>
+                {i + 10}
+              </option>
+            ))}
+          </select>
           <Formfield
             type="number"
             name="round1Marks"
@@ -109,7 +142,7 @@ function Takeinfo() {
             onChange={handleChange}
             label="Round 1 Marks"
             min={0}
-            max={10}
+            max={formData.maxRoundMarks}
             step="0.01"
           />
           <Formfield
@@ -119,7 +152,7 @@ function Takeinfo() {
             onChange={handleChange}
             label="Round 2 Marks"
             min={0}
-            max={10}
+            max={formData.maxRoundMarks}
             step="0.01"
           />
           <Formfield
@@ -129,7 +162,7 @@ function Takeinfo() {
             onChange={handleChange}
             label="Round 3 Marks"
             min={0}
-            max={10}
+            max={formData.maxRoundMarks}
             step="0.01"
           />
           <Formfield
@@ -139,7 +172,7 @@ function Takeinfo() {
             onChange={handleChange}
             label="Tech Marks"
             min={10}
-            max={20}
+            max={formData.maxTechMarks}
             step="0.01"
           />
           <button

@@ -19,25 +19,53 @@ const userSchema = new Schema({
         type: Number,
         required: true,
         min: [0, 'Round 1 Marks must be at least 0'],
-        max: [10, 'Round 1 Marks cannot exceed 10']
+        validate: {
+            validator: function(value) {
+                return value <= this.maxRoundMarks;
+            },
+            message: 'Round 1 Marks cannot exceed maxRoundMarks'
+        }
     },
     round2Marks: {
         type: Number,
         required: true,
         min: [0, 'Round 2 Marks must be at least 0'],
-        max: [10, 'Round 2 Marks cannot exceed 10']
+        validate: {
+            validator: function(value) {
+                return value <= this.maxRoundMarks;
+            },
+            message: 'Round 2 Marks cannot exceed maxRoundMarks'
+        }
     },
     round3Marks: {
         type: Number,
         required: true,
         min: [0, 'Round 3 Marks must be at least 0'],
-        max: [10, 'Round 3 Marks cannot exceed 10']
+        validate: {
+            validator: function(value) {
+                return value <= this.maxRoundMarks;
+            },
+            message: 'Round 3 Marks cannot exceed maxRoundMarks'
+        }
     },
     techMarks: {
         type: Number,
         required: true,
         min: [10, 'Tech Marks must be at least 10'],
-        max: [20, 'Tech Marks cannot exceed 20']
+        validate: {
+            validator: function(value) {
+                return value <= this.maxTechMarks;
+            },
+            message: 'Tech Marks cannot exceed maxTechMarks'
+        }
+    },
+    maxRoundMarks: {
+        type: Number,
+        required: true
+    },
+    maxTechMarks: {
+        type: Number,
+        required: true
     }
 });
 

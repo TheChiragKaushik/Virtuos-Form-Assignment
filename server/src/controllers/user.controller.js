@@ -3,11 +3,11 @@ import User from '../models/user.model.js'
 const newUser = async (req, res) => {
 
     try {
-        const { user, collegeName, round1Marks, round2Marks, round3Marks, techMarks } = req.body;
+        const { user, collegeName, round1Marks, round2Marks, round3Marks, techMarks, maxRoundMarks, maxTechMarks } = req.body;
 
-        if (!user || !collegeName || !round1Marks || !round2Marks || !round3Marks || !techMarks) {
+        if (!user || !collegeName || !round1Marks || !round2Marks || !round3Marks || !techMarks || !maxRoundMarks || !maxTechMarks) {
             return res.status(400).json({
-                msg: "Enter necessary details!"
+                msg: "Enter necessary details! Not getting enough data from Frontend!"
             })
         }
 
@@ -17,7 +17,9 @@ const newUser = async (req, res) => {
             round1Marks,
             round2Marks,
             round3Marks,
-            techMarks
+            techMarks,
+            maxRoundMarks,
+            maxTechMarks
         })
        
         if (!newUser) {
